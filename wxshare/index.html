@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/qzact/common/share/share.js"></script>
+    <script>
+        wx.config({
+            debug: false,
+            appId: '', //微信公众号appId,公众号唯一标示
+            timestamp: "", //生成签名的时间戳
+            nonceStr: '', //生成签名的随机串
+            signature: '', //签名
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+        var url = window.location.href;
+        wx.ready(function() {
+            var shareData = {
+                title: '', //分享信息的标题
+                desc: '', //分享信息的描述
+                link: url, //分享信息的链接
+                imgUrl: '' //分享信息的图片
+            };
+            wx.checkJsApi({
+                jsApiList: [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage'
+                ],
+                success: function(res) {
+                    //alert(JSON.stringify(res));
+                }
+            });
+            wx.onMenuShareTimeline({
+                title: '', // 分享标题
+                link: url, // 分享链接
+                imgUrl: '' // 分享图标
+            });
+            wx.onMenuShareAppMessage(shareData);
+            wx.onMenuShareQQ(shareData);
+            wx.onMenuShareWeibo(shareData);
+            wx.onMenuShareQZone(shareData);
+        });
+        wx.error(function(res) {
+            alert(res.errMsg);
+        });
+        var strTiele = ''; //分享信息的标题
+        var strDesc = ''; //分享信息的描述
+        var strLink = url; //分享信息的链接
+        var strImgUrl = ''; //分享信息的图片
+        //分享
+        setShareInfo({
+            title: strTiele,
+            summary: strDesc,
+            pic: strImgUrl,
+            url: strLink
+        });
+    </script>
+
+</body>
+
+</html>
